@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan treninga i ishrane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: the coach's weekly sheet taped inside the locker, plain and direct
+   IDEA red corner and blue corner: kik boks days are red, gym days are blue, rest is the canvas
+   PICTURE the week strip of seven corner-coloured tiles, today marked with yellow tape
+   COLOUR white ground, ink, corner red #d42a31, corner blue #2452d6, tape yellow #ffd21f
+   TYPE Barlow Condensed for days, times and figures; Barlow for text
+   LAYOUT title and figures, full-width week strip, then the day: timeline left, totals right; phone stacks */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#15171c);--ink:light-dark(#14171f,#eef0f4);--mute:light-dark(#596070,#a2a8b5);--line:light-dark(#e2e5ea,#2c3039);--card:light-dark(#f3f4f7,#1e2128);--rest:light-dark(#e6e8ed,#272b34);--red:#d42a31;--blue:#2452d6;--tape:#ffd21f;--redt:light-dark(#c8232a,#ff7378);--bluet:light-dark(#2452d6,#86a3ff);--reds:light-dark(#fdeced,#3a1d20);--blues:light-dark(#eaf0ff,#1c2647)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+.band{padding-block:clamp(24px,4vw,56px);padding-inline:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3,.c{font-family:"Barlow Condensed",Barlow,sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.05}
+h1{font-size:clamp(36px,5vw,52px);margin:0 0 8px;text-wrap:balance}
+h2{font-size:clamp(30px,3.6vw,40px);margin:0 0 8px}
+h3{font-size:22px;margin:0 0 4px}
+p{margin:0 0 10px}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:inherit}
+.mute{color:var(--mute)}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 40px;align-items:end;padding-bottom:20px}
+.lead{color:var(--mute);max-width:60ch;margin:0}
+.figs{display:flex;flex-wrap:wrap;gap:8px 28px}
+.figs div{display:grid}
+.figs b{font:700 clamp(30px,4vw,40px)/1 "Barlow Condensed",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.nav{display:flex;gap:6px;overflow-x:auto;padding:10px max(5vw,16px);border-block:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+.nav a{flex:none;text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:999px;background:var(--card)}
+.nav a:focus-visible,button:focus-visible{outline:3px solid var(--tape);outline-offset:2px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:22px}
+.tile{position:relative;border:0;border-radius:10px;padding:30px 12px 14px;text-align:left;color:#fff;cursor:pointer;font:inherit;min-height:132px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;transition:transform .18s}
+.tile.kb{background:var(--red)}
+.tile.gym{background:var(--blue)}
+.tile.rest{background:var(--rest);color:var(--ink)}
+.tile .ab{font:700 clamp(24px,3.2vw,38px)/1 "Barlow Condensed",sans-serif}
+.tile .lb{font-weight:600;font-size:15px;line-height:1.2}
+.tile .sh{display:none;font-size:13px;font-weight:600}
+.tile .tm{font-size:14px;opacity:.85;white-space:nowrap}
+.tile .tag{position:absolute;top:8px;left:8px;background:var(--tape);color:#14171f;font-size:13px;font-weight:600;padding:1px 8px;border-radius:3px;transform:rotate(-3deg)}
+.tile[aria-pressed=true]{transform:translateY(-6px);box-shadow:0 0 0 3px var(--bg),0 0 0 6px var(--ink)}
+.dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:18px}
+.dayhead h2{margin:0}
+.dayhead p{margin:0;color:var(--mute);max-width:70ch}
+.daygrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:32px;align-items:start}
+.ev{display:grid;grid-template-columns:5.2em minmax(0,1fr) auto;gap:4px 16px;padding:16px 0;border-top:1px solid var(--line)}
+.ev:first-child{border-top:0;padding-top:0}
+.ev .tm{font:700 28px/1 "Barlow Condensed",sans-serif;white-space:nowrap}
+.ev ul li{padding-left:14px;position:relative}
+.ev ul li::before{content:"";position:absolute;left:0;top:.7em;width:6px;height:2px;background:var(--mute)}
+.ev .alt{color:var(--mute);font-size:15px;margin:6px 0 0}
+.ev .kc{display:grid;justify-items:end;align-content:start;gap:2px;text-align:right}
+.ev .kc b{font:700 22px/1.1 "Barlow Condensed",sans-serif;white-space:nowrap}
+.ev .kc span{font-size:14px;color:var(--mute);white-space:nowrap}
+.ev.done h3,.ev.done ul{opacity:.5}
+.ev.tr{border-radius:10px;padding:16px;border:0;margin:6px 0}
+.ev.tr+.ev{border-top:0}
+.ev.tr.kb{background:var(--reds)}
+.ev.tr.kb .tm,.ev.tr.kb h3{color:var(--redt)}
+.ev.tr.gym{background:var(--blues)}
+.ev.tr.gym .tm,.ev.tr.gym h3{color:var(--bluet)}
+.ev.tr p{margin:0}
+.chk{margin-top:6px;font:600 14px Barlow,sans-serif;min-height:44px;padding:0 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chk[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sum{background:var(--card);border-radius:12px;padding:20px;position:sticky;top:76px}
+.tot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tot b{display:block;font:700 34px/1 "Barlow Condensed",sans-serif;white-space:nowrap}
+.tot span{font-size:14px;color:var(--mute)}
+.prog{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.bar{height:12px;border-radius:6px;background:var(--rest);overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--tape);transition:width .3s}
+.prog p{font-size:15px;margin:0}
+.lnk{border:0;background:none;color:inherit;font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;padding:10px 0;min-height:44px}
+.sec{border-top:1px solid var(--line)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.wk{border-radius:12px;overflow:hidden;background:var(--card)}
+.wk header{background:var(--blue);color:#fff;padding:16px 18px}
+.wk header h3{font-size:28px;margin:0}
+.wk header p{margin:0;opacity:.9;font-size:15px}
+.wk ol{padding:6px 18px 14px;counter-reset:x}
+.wk li{display:grid;grid-template-columns:1.4em minmax(0,1fr) auto;gap:2px 8px;padding:10px 0;border-top:1px solid var(--line);counter-increment:x}
+.wk li:first-child{border-top:0}
+.wk li::before{content:counter(x);font:700 18px/1.3 "Barlow Condensed",sans-serif;color:var(--bluet)}
+.wk .x{font-weight:600;line-height:1.3}
+.wk .nt{grid-column:2/4;font-size:14px;color:var(--mute);line-height:1.4}
+.wk .sr{text-align:right;white-space:nowrap;font:700 18px/1.3 "Barlow Condensed",sans-serif}
+.wk .sr small{display:block;font:500 13px Barlow,sans-serif;color:var(--mute)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17em),1fr));gap:12px 32px;margin-top:22px}
+.rules li{padding-left:18px;position:relative}
+.rules li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:2px;background:var(--blue)}
+.kbsec .rules li::before{background:var(--red)}
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:24px;position:relative}
+.route::before{content:"";position:absolute;left:0;right:0;top:15px;height:6px;border-radius:3px;background:var(--red)}
+.route li{position:relative;padding:40px 12px 0 0}
+.route li::before{content:"";position:absolute;top:6px;left:0;width:24px;height:24px;border-radius:50%;background:var(--bg);border:6px solid var(--red)}
+.route .t{font:700 30px/1 "Barlow Condensed",sans-serif;display:block;margin-bottom:4px}
+.route li.hot::before{background:var(--red)}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin-top:16px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--mute);font-weight:600}
+td:first-child{font-weight:600;width:34%}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15em),1fr));gap:0 28px;margin-top:16px}
+.shop li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.shop li b{white-space:nowrap;font-weight:600}
+.btn{font:600 15px Barlow,sans-serif;min-height:44px;padding:0 18px;border-radius:8px;border:0;background:var(--ink);color:var(--bg);cursor:pointer}
+.steps{display:flex;align-items:flex-end;gap:10px;height:180px;margin-top:20px}
+.steps div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.steps i{display:block;background:var(--blue);border-radius:6px 6px 0 0}
+.steps div:first-child i{background:var(--rest)}
+.steps b{font:700 26px/1 "Barlow Condensed",sans-serif;white-space:nowrap;margin-bottom:6px}
+.steps span{font-size:14px;color:var(--mute);margin-top:6px;white-space:nowrap}
+.foot{font-size:14px;color:var(--mute);border-top:1px solid var(--line)}
+@media(max-width:900px){.daygrid{grid-template-columns:minmax(0,1fr)}.sum{position:static;order:-1}.cols{grid-template-columns:minmax(0,1fr)}.split{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.top{grid-template-columns:minmax(0,1fr)}.tile{min-height:96px;padding:28px 6px 10px;border-radius:8px}.tile .lb{display:none}.tile .sh{display:block}.tile .tm{font-size:12px}.tile .tag{font-size:11px;left:4px;padding:0 5px}.ev{grid-template-columns:4em minmax(0,1fr)}.ev .tm{font-size:24px}.ev .kc{grid-column:2;justify-items:start;text-align:left;grid-auto-flow:column;justify-content:start;align-items:center;gap:4px 12px}.ev .chk{margin-top:0}.route{grid-template-columns:minmax(0,1fr)}.route::before{left:9px;right:auto;top:0;bottom:0;width:6px;height:auto}.route li{padding:0 0 18px 44px}.route li::before{top:2px}}
+@media(max-width:600px){table{font-size:15px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{border:0;padding:2px 0;width:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tile,.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="band wrap" style="padding-bottom:0">
+  <div class="top">
+    <div>
+      <h1>Plan treninga i ishrane</h1>
+      <p class="lead">Cilj: masa bez sala. 184 cm, 72 kg, 17 godina. Kik boks ponedeljkom, sredom i petkom u 21h, teretana utorkom, četvrtkom i subotom. Dodirni dan da vidiš šta jedeš i kad.</p>
+    </div>
+    <div class="figs">
+      <div><b>≈3.000 kcal</b><span>na dan treninga</span></div>
+      <div><b>≈170 g</b><span>proteina dnevno</span></div>
+      <div><b>+1 kg</b><span>mesečno</span></div>
+    </div>
+  </div>
+  <div class="week" id="week" role="group" aria-label="Dani u nedelji"></div>
+</header>
+
+<nav class="nav" style="margin-top:28px" aria-label="Delovi plana">
+  <a href="#dan">Dan</a><a href="#teretana">Teretana</a><a href="#kikboks">Kik boks dani</a><a href="#zamene">Zamene</a><a href="#kupovina">Kupovina</a><a href="#napredak">Napredak</a>
+</nav>
+
+<section class="band wrap" id="dan">
+  <div class="dayhead"><h2 id="dname"></h2><p id="dsub"></p></div>
+  <div class="daygrid">
+    <ol id="tl"></ol>
+    <aside class="sum" id="sum"></aside>
+  </div>
+</section>
+
+<section class="band sec" id="teretana">
+  <div class="wrap">
+    <h2>Teretana: gornji deo, noge, gornji deo</h2>
+    <p class="lead">Noge su samo četvrtkom i umerene, jer kik boks već puno radi noge. Svaki trening traje oko 70 minuta sa zagrevanjem.</p>
+    <div class="cols" id="wk"></div>
+    <ul class="rules">
+      <li><b>Zagrevanje.</b> 5–8 minuta bicikl, traka ili vijača, pa 2 lakše serije prve vežbe.</li>
+      <li><b>Ne do otkaza.</b> Završi seriju kad ti ostanu 1–2 ponavljanja u rezervi. Četvrtkom 2–3, jer je u petak kik boks.</li>
+      <li><b>Kako da napreduješ.</b> Kad u svim serijama uradiš gornji broj (npr. 4 × 8), sledeći put dodaj 2,5 kg. Na bučicama 1–2 kg.</li>
+      <li><b>Zapisuj kilaže</b> u beleške na telefonu. Bez toga ne znaš da li napreduješ.</li>
+      <li><b>Tehnika pre kilaže.</b> Ako ne znaš vežbu, zamoli trenera u teretani da ti je pokaže.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band sec kbsec" id="kikboks">
+  <div class="wrap">
+    <h2>Kik boks dani: veče oko treninga</h2>
+    <p class="lead">Trening je kasno, pa je bitno da ne treniraš pun ni prazan, i da posle ne legneš gladan.</p>
+    <ol class="route">
+      <li><span class="t">18:30</span>Poslednji veći obrok. Lako: testenina, pirinač, piletina, tuna. Bez prženog.</li>
+      <li><span class="t">20:15</span>Banana. Brza energija koja ne opterećuje stomak.</li>
+      <li class="hot"><span class="t">21:00</span>Trening. Pij vodu tokom treninga, oko 0,75 l.</li>
+      <li><span class="t">22:45</span>Obrok posle treninga: proteini i hleb. Ne preskači ga.</li>
+      <li><span class="t">00:00</span>U krevetu najkasnije do ponoći.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="band sec" id="zamene">
+  <div class="wrap split">
+    <div>
+      <h2>Zamene</h2>
+      <p class="lead">Ne moraš da jedeš isto svaki dan. Menjaj namirnice po ovoj tabeli i brojke ostaju iste.</p>
+      <div class="scroll"><table class="stack"><thead><tr><th>Umesto</th><th>Može</th></tr></thead><tbody id="zm"></tbody></table></div>
+    </div>
+    <div id="kupovina">
+      <h2>Nedeljna kupovina</h2>
+      <p class="lead">Izračunato iz plana za svih 7 dana. Meso, pirinač, testenina i krompir su sirova težina.</p>
+      <ul class="shop" id="shop"></ul>
+      <p style="margin-top:16px"><button class="btn" id="copy" type="button">Kopiraj listu</button> <span class="mute" id="copied" aria-live="polite"></span></p>
+    </div>
+  </div>
+</section>
+
+<section class="band sec" id="napredak">
+  <div class="wrap split">
+    <div>
+      <h2>Kako pratiš napredak</h2>
+      <ul class="rules" style="grid-template-columns:minmax(0,1fr);margin-top:12px">
+        <li><b>Meri se jednom nedeljno:</b> nedeljom ujutru, posle toaleta, pre doručka. Gledaj promenu kroz 2–3 nedelje, ne dan po dan.</li>
+        <li><b>Ako se 2 nedelje ništa ne promeni,</b> dodaj oko 200 kcal: čašu mleka i bananu, ili 40 g pirinča više za ručak.</li>
+        <li><b>Ako dobijaš više od 0,5 kg nedeljno</b> 2 nedelje zaredom, oduzmi oko 200 kcal.</li>
+        <li><b>Slikaj se svake 2 nedelje:</b> isto mesto, isto svetlo, ujutru. Spreda, bočno i leđa.</li>
+        <li><b>Spavaj 8–9 sati.</b> U 17. godini to radi koliko i trening.</li>
+        <li><b>Pij 2,5–3 l vode dnevno,</b> više na dane kik boksa.</li>
+        <li><b>Suplementi ti ne trebaju.</b> Ako ti neko u teretani ponudi nešto „za mišiće“, tablete ili injekcije, odbij. Proteinski prah je samo hrana u prahu i nije obavezan.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:28px">Ako ide po planu</h3>
+      <p class="mute">Oko 0,25 kg nedeljno. Sporije je bolje: ide u mišiće, ne u salo.</p>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="band foot"><div class="wrap">Kalorije su procene na osnovu prosečnih vrednosti namirnica. Ne moraš da meriš do grama: prve dve nedelje izmeri porcije da naučiš kako izgledaju, posle ide od oka.</div></footer>
+
+<script>
+{
+const F={ovs:[100,'g',370,13,60,7],mleko:[100,'ml',60,3.3,4.7,2.8],jog:[100,'ml',58,3.1,4.3,2.8],banana:[1,'kom',105,1.3,27,.4],jabuka:[1,'kom',80,.4,21,.3],kp:[100,'g',600,25,20,50],jaje:[1,'kom',75,6.5,.5,5],hleb:[100,'g',250,9,45,3],sunka:[100,'g',100,19,2,2],sir:[100,'g',350,25,0,27],posni:[100,'g',100,13,3.5,4],pil:[100,'g',110,23,0,1.5],batak:[100,'g',120,20,0,4.5],june:[100,'g',175,20,0,10],tuna:[1,'kom',110,25,0,1],pirinac:[100,'g',350,7,78,.6],testenina:[100,'g',355,12,72,1.5],krompir:[100,'g',77,2,17,.1],sos:[100,'g',35,1.5,6,.2],ulje:[100,'g',884,0,0,100],orasi:[100,'g',654,15,14,65],med:[100,'g',304,.3,82,0],povrce:[1,'porcija',30,1.5,5,.3],tortilja:[1,'kom',180,5,30,4.5]};
+const NM={pil:'Pileći file',batak:'Pileći batak bez kože',june:'Mlevena junetina',tuna:'Tunjevina u konzervi',jaje:'Jaja',sunka:'Pileća šunka',posni:'Posni kravlji sir',sir:'Sir (gauda, trapist)',mleko:'Mleko 2,8%',jog:'Jogurt',ovs:'Ovsene pahuljice',hleb:'Integralni hleb',pirinac:'Pirinač',testenina:'Testenina',krompir:'Krompir',tortilja:'Tortilje',banana:'Banane',jabuka:'Jabuke',povrce:'Povrće za salatu',sos:'Paradajz sos (pasata)',orasi:'Orasi',kp:'Kikiriki puter',med:'Med',ulje:'Maslinovo ulje'};
+const KB=[
+ {t:'07:00',n:'Doručak: ovsena kaša',i:[['ovs',80,'80 g ovsenih pahuljica'],['mleko',300,'300 ml mleka'],['banana',1,'1 banana'],['kp',15,'1 kašika kikiriki putera']],a:'Ili 3 jaja, 3 kriške hleba i banana.'},
+ {t:'10:30',n:'Užina u školi',i:[['hleb',80,'Sendvič: 2 kriške integralnog hleba'],['sunka',50,'50 g pileće šunke'],['sir',30,'kriška sira'],['povrce',.5,'paradajz ili krastavac'],['jabuka',1,'1 jabuka'],['orasi',20,'šaka oraha']]},
+ {t:'14:30',n:'Ručak',i:[['pil',150,'150 g piletine'],['pirinac',120,'120 g pirinča'],['povrce',1,'velika salata'],['ulje',10,'1 kašika maslinovog ulja']],a:'Ili ono što se kuva kod kuće: pola tanjira meso, četvrt prilog, četvrt salata.'},
+ {t:'18:30',n:'Obrok pre treninga',i:[['testenina',80,'80 g testenine'],['tuna',1,'1 konzerva tunjevine u sopstvenom soku'],['sos',150,'150 g paradajz sosa']],a:'Lako, bez prženog i masnog. 2,5 sata pre treninga.'},
+ {t:'20:15',n:'Brza energija',i:[['banana',1,'1 banana']],a:'45 minuta pre treninga.'},
+ {tr:1},
+ {t:'22:45',n:'Posle treninga',i:[['jaje',3,'omlet od 3 jajeta'],['hleb',80,'2 kriške hleba'],['jog',250,'250 ml jogurta']],a:'Ili 250 g posnog sira sa medom i bananom. Ne preskači ovaj obrok.'}];
+const GYM=[
+ {t:'07:00',n:'Doručak: jaja i hleb',i:[['jaje',3,'3 jaja, kajgana ili kuvana'],['hleb',120,'3 kriške integralnog hleba'],['povrce',.5,'paradajz, paprika'],['banana',1,'1 banana']],a:'Ili ovsena kaša kao ponedeljkom.'},
+ {t:'10:30',n:'Užina u školi',i:[['hleb',80,'Sendvič: 2 kriške integralnog hleba'],['sunka',50,'50 g pileće šunke'],['sir',30,'kriška sira'],['povrce',.5,'paradajz ili krastavac'],['jabuka',1,'1 jabuka']]},
+ {t:'14:00',n:'Ručak: testenina bolonjeze',i:[['testenina',120,'120 g testenine'],['june',120,'120 g mlevene junetine'],['sos',150,'150 g paradajz sosa'],['povrce',1,'salata']],a:'Ili ono što se kuva kod kuće, uz veću porciju priloga.'},
+ {t:'16:00',n:'Pre treninga',i:[['banana',1,'1 banana'],['jog',250,'250 ml jogurta']],a:'Sat vremena pre teretane.'},
+ {tr:1},
+ {t:'18:45',n:'Večera posle treninga',i:[['pil',150,'150 g piletine'],['krompir',400,'400 g krompira, pečen ili kuvan'],['povrce',1,'salata'],['ulje',10,'1 kašika ulja']],a:'Najveći obrok dana. Krompir možeš da zameniš sa 90 g pirinča.'},
+ {t:'21:30',n:'Pred spavanje',i:[['posni',150,'150 g posnog kravljeg sira'],['med',20,'1 kašika meda'],['orasi',20,'šaka oraha']],a:'Ili 2 čaše mleka i kriška hleba sa kikiriki puterom.'}];
+const REST=[
+ {t:'09:30',n:'Doručak',i:[['jaje',3,'omlet od 3 jajeta'],['sir',30,'kriška sira'],['hleb',80,'2 kriške hleba'],['povrce',.5,'povrće'],['banana',1,'1 banana']]},
+ {t:'13:30',n:'Nedeljni ručak',i:[['batak',200,'200 g piletine, batak bez kože'],['krompir',300,'300 g krompira'],['hleb',40,'1 kriška hleba'],['povrce',1,'salata'],['ulje',10,'1 kašika ulja']],a:'Ili ono što je za ručak kod kuće: pun tanjir, pola tanjira meso.'},
+ {t:'17:00',n:'Užina',i:[['jog',250,'250 ml jogurta'],['ovs',50,'50 g ovsenih pahuljica'],['jabuka',1,'1 jabuka, iseckana'],['orasi',20,'šaka oraha']]},
+ {t:'20:00',n:'Večera: tortilje',i:[['tortilja',2,'2 tortilje'],['tuna',1,'1 konzerva tunjevine'],['povrce',1,'zelena salata, paradajz, kukuruz'],['jog',50,'2 kašike jogurta kao sos']]},
+ {t:'22:00',n:'Pred spavanje',i:[['posni',150,'150 g posnog kravljeg sira'],['med',20,'1 kašika meda']]}];
+const W=[
+ {d:'Utorak',n:'Gornji deo A',f:'Grudi i leđa',x:[['Potisak sa ravne klupe','4 × 6–8','2–3 min','Lopatice skupljene, šipka do donjeg dela grudi.'],['Zgibovi ili vučenje na lat mašini','4 × 8–10','2 min','Ako ne možeš 8 zgibova, radi lat mašinu.'],['Potisak bučicama na kosoj klupi','3 × 8–12','90 s',''],['Veslanje bučicom jednom rukom','3 × 10–12','90 s','Po ruci.'],['Bočno odizanje bučica','3 × 12–15','60 s','Lagano, bez zamaha.'],['Pregib sa šipkom za biceps','3 × 10–12','60 s',''],['Triceps na sajli','3 × 10–12','60 s','']]},
+ {d:'Četvrtak',n:'Noge i stomak',f:'Umereno, sutra je kik boks',x:[['Čučanj sa šipkom','4 × 6–8','2–3 min','Ako si nov, počni sa goblet čučnjem uz bučicu.'],['Rumunsko mrtvo dizanje','3 × 8–10','2 min','Leđa prava, šipka klizi niz noge.'],['Nožna presa','3 × 10–12','90 s',''],['Pregib nogu na mašini','3 × 10–12','60 s','Zadnja loža.'],['Podizanje na prste','3 × 12–15','60 s','Listovi.'],['Podizanje nogu u visu','3 × 10–15','60 s',''],['Plank','3 × 45 s','45 s','']]},
+ {d:'Subota',n:'Gornji deo B',f:'Ramena, leđa i ruke',x:[['Potisak bučicama iznad glave, sedeći','4 × 6–8','2 min',''],['Veslanje sa šipkom u pretklonu','4 × 8–10','2 min','Vuci ka stomaku, ne ka grudima.'],['Propadanja na razboju','3 × 8–12','90 s','Ili potisak šipkom na kosoj klupi.'],['Vučenje na lat mašini, uzak hvat','3 × 10–12','90 s',''],['Face pull na sajli','3 × 12–15','60 s','Čuva ramena, bitno za boks.'],['Biceps čekić','3 × 10–12','60 s',''],['Triceps iznad glave sa bučicom','3 × 10–12','60 s','']]}];
+const D=[{d:'Ponedeljak',s:'Pon',t:'kb',p:KB},{d:'Utorak',s:'Uto',t:'gym',w:0,p:GYM},{d:'Sreda',s:'Sre',t:'kb',p:KB},{d:'Četvrtak',s:'Čet',t:'gym',w:1,p:GYM},{d:'Petak',s:'Pet',t:'kb',p:KB},{d:'Subota',s:'Sub',t:'gym',w:2,p:GYM},{d:'Nedelja',s:'Ned',t:'rest',p:REST}];
+const ZM=[['150 g piletine','150 g ćuretine, 150 g junetine, konzerva tune i 1 jaje, ili 250 g posnog sira'],['100 g pirinča','110 g testenine, 450 g krompira, 4 kriške hleba ili 130 g ovsenih pahuljica'],['Ovsena kaša za doručak','3 jaja, 3 kriške hleba i banana'],['Sendvič za školu','2 kuvana jajeta, pecivo i jogurt'],['Mleko','Jogurt ili kiselo mleko, ista količina'],['Šaka oraha','Šaka badema ili lešnika, ili 1 kašika kikiriki putera'],['Banana ili jabuka','Kruška, 2 mandarine ili šaka grožđa'],['Kuvani ručak kod kuće','Slobodno: pola tanjira meso ili pasulj sa mesom, četvrt prilog, četvrt salata'],['Burek, pica, giros','Jednom nedeljno, umesto jednog obroka, ne kao dodatak']];
+
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString('de-DE');
+const mac=(k,q)=>{const f=F[k],m=q/f[0];return [f[2]*m,f[3]*m,f[4]*m,f[5]*m]};
+const sum=items=>items.reduce((a,[k,q])=>{const m=mac(k,q);return a.map((v,i)=>v+m[i])},[0,0,0,0]);
+const daySum=p=>sum(p.filter(m=>m.i).flatMap(m=>m.i));
+const now=new Date();
+const today=(now.getDay()+6)%7;
+const dkey=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+let eaten=[];
+try{const s=JSON.parse(localStorage.getItem('plan-pojedeno')||'{}');if(s.d===dkey)eaten=s.j||[]}catch(e){}
+const save=()=>{try{localStorage.setItem('plan-pojedeno',JSON.stringify({d:dkey,j:eaten}))}catch(e){}};
+const train=d=>d.t==='kb'?{t:'21:00',n:'Kik boks',s:'21:00–22:30. Ponesi 0,75 l vode i pij tokom treninga.'}:{t:'17:00',n:'Teretana: '+W[d.w].n,s:W[d.w].f+'. Oko 70 minuta. ',l:1};
+const sub=d=>d.t==='kb'?'Kik boks u 21:00. Veći obrok u 18:30, banana pre treninga, obrok odmah posle.':d.t==='gym'?'Teretana u 17:00: '+W[d.w].n+'. Užina sat pre, najveći obrok posle. Ako ideš u drugo vreme, pomeri obroke, razmaci ostaju isti.':'Odmor. Ujutru se izmeri pre doručka. Šetnja je ok, teretana i džak nisu.';
+let sel=today;
+
+function week(){
+ $('week').innerHTML=D.map((d,i)=>{const tm=d.t==='kb'?'21:00':d.t==='gym'?'17:00':'';const lb=d.t==='kb'?'Kik boks':d.t==='gym'?W[d.w].n:'Odmor';const sh=d.t==='kb'?'Boks':d.t==='gym'?'Gym':'Odmor';
+ return `<button type="button" class="tile ${d.t}" data-i="${i}" aria-pressed="${i===sel}" aria-label="${d.d}: ${lb}">${i===today?'<span class="tag">Danas</span>':''}<span class="ab">${d.s}</span><span class="lb">${lb}</span><span class="sh">${sh}</span><span class="tm">${tm}</span></button>`}).join('');
+}
+function day(){
+ const d=D[sel],isT=sel===today,tot=daySum(d.p);
+ $('dname').textContent=(isT?'Danas, ':'')+d.d.toLowerCase().replace(/^./,c=>isT?c:c.toUpperCase());
+ $('dsub').textContent=sub(d);
+ $('tl').innerHTML=d.p.map((m,j)=>{
+  if(m.tr){const r=train(d);return `<li class="ev tr ${d.t}"><span class="tm">${r.t}</span><div><h3>${r.n}</h3><p>${r.s}${r.l?'<a href="#teretana">Vežbe su ovde.</a>':''}</p></div></li>`}
+  const s=sum(m.i),on=isT&&eaten.includes(j);
+  return `<li class="ev${on?' done':''}"><span class="tm">${m.t}</span><div><h3>${m.n}</h3><ul>${m.i.map(x=>`<li>${x[2]}</li>`).join('')}</ul>${m.a?`<p class="alt">${m.a}</p>`:''}</div><div class="kc"><b>${fmt(s[0])} kcal</b><span>${fmt(s[1])} g proteina</span>${isT?`<button type="button" class="chk" data-j="${j}" aria-pressed="${on}">${on?'✓ Pojedeno':'Pojedeno?'}</button>`:''}</div></li>`}).join('');
+ const e=sum(d.p.flatMap((m,j)=>isT&&m.i&&eaten.includes(j)?m.i:[]));
+ const pct=Math.min(100,e[0]/tot[0]*100);
+ $('sum').innerHTML=`<h3>Ukupno za ${isT?'danas':'ovaj dan'}</h3><div class="tot" style="margin-top:12px"><div><b>${fmt(tot[0])}</b><span>kcal</span></div><div><b>${fmt(tot[1])} g</b><span>proteina</span></div><div><b>${fmt(tot[2])} g</b><span>ugljenih hidrata</span></div><div><b>${fmt(tot[3])} g</b><span>masti</span></div></div>`+
+ (isT?`<div class="prog"><b>Pojedeno do sad</b><div class="bar"><i style="width:${pct}%"></i></div><p>${fmt(e[0])} od ${fmt(tot[0])} kcal, ${fmt(e[1])} od ${fmt(tot[1])} g proteina. Označi obrok kad ga pojedeš.</p></div>`
+ :`<div class="prog"><p>Danas je ${D[today].d.toLowerCase()}.</p><button type="button" class="lnk" id="back">Prikaži danas</button></div>`);
+}
+function pick(i){sel=i;week();day()}
+$('week').addEventListener('click',e=>{const b=e.target.closest('.tile');if(b)pick(+b.dataset.i)});
+$('dan').addEventListener('click',e=>{
+ const c=e.target.closest('.chk');
+ if(c){const j=+c.dataset.j;eaten=eaten.includes(j)?eaten.filter(x=>x!==j):eaten.concat(j);save();day();return}
+ if(e.target.id==='back')pick(today);
+});
+
+$('wk').innerHTML=W.map(w=>`<article class="wk"><header><p>${w.d}</p><h3>${w.n}</h3><p>${w.f}</p></header><ol>${w.x.map(x=>`<li><span class="x">${x[0]}</span><span class="sr">${x[1]}<small>odmor ${x[2]}</small></span>${x[3]?`<span class="nt">${x[3]}</span>`:''}</li>`).join('')}</ol></article>`).join('');
+$('zm').innerHTML=ZM.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+
+const tot={};
+D.forEach(d=>d.p.forEach(m=>(m.i||[]).forEach(([k,q])=>{tot[k]=(tot[k]||0)+q})));
+const fq=(k,q)=>{const u=F[k][1];if(u==='g')return q>=1000?(q/1000).toFixed(1).replace('.',',')+' kg':Math.ceil(q/10)*10+' g';if(u==='ml')return (q/1000).toFixed(1).replace('.',',')+' l';return Math.ceil(q)+' '+u};
+const shop=Object.keys(NM).filter(k=>tot[k]).map(k=>[NM[k],fq(k,tot[k])]);
+$('shop').innerHTML=shop.map(r=>`<li><span>${r[0]}</span><b>${r[1]}</b></li>`).join('');
+$('copy').addEventListener('click',()=>{const txt=shop.map(r=>r[0]+': '+r[1]).join('\n');
+ navigator.clipboard.writeText(txt).then(()=>{$('copied').textContent='Kopirano.'},()=>{$('copied').textContent='Telefon nije dozvolio kopiranje. Napravi screenshot liste.'})});
+
+const ST=[['Sada',72],['Kraj dec.',73],['Kraj jan.',74],['Kraj feb.',75]];
+$('steps').innerHTML=ST.map(s=>`<div><b>${s[1]} kg</b><i style="height:${(s[1]-70)*24}px"></i><span>${s[0]}</span></div>`).join('');
+
+week();day();
+}
+</script>
+</body>
+</html>
