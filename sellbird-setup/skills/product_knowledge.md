@@ -14,7 +14,7 @@ like a translation:
 - Use normal Serbian words, not English ones, where they exist:
   "sajt", "telefon", "Google", "Instagram" are fine; "lead", "conversion",
   "landing page", "CTA" are not.
-- Subject lines are lowercase, 2 to 5 words, in Serbian.
+- Subject lines are lowercase, 2 to 5 words, in Serbian (see below).
 - Keep Serbian letters (č, ć, ž, š, đ). Don't replace them with c, z, s, dj.
 
 ## How to write: like a professional salesman
@@ -37,6 +37,20 @@ business earn more, not to beg for work.
   no flattery, no exclamation marks.
 - **Follow-ups** add something new each time: a different benefit, or a
   concrete detail of what they'd get. Never just "samo proveravam".
+
+## Subject lines: always eye-catching
+
+The subject decides whether the email is opened. Every subject must make the
+owner curious about *their own* business, at a glance:
+
+- **Name their business or the one thing you found**, so it can only be for
+  them: "salon ana na telefonu", "cenovnik pekare mika", "nacrt za restoran
+  dva jelena", "vaš broj na sajtu".
+- Lowercase, 2 to 5 words, like a note from a person, not an advert.
+- **Never** spam tricks that send email to the spam folder or break trust: no
+  capitals, no exclamation marks, no emoji, no "besplatno", "hitno",
+  "akcija", "popust", and never a fake "Re:" or "Fwd:".
+- Never promise in the subject what the email doesn't deliver.
 
 ## Replies: move the sale forward
 
