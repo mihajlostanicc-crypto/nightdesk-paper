@@ -23,6 +23,8 @@ This folder holds your settings, ready to drop into Sellbird:
 | **Who to email** | Hair and beauty salons, nail salons, barbers, gyms, restaurants, cafes, bakeries, hotels, dental practices, physiotherapy, vet clinics |
 | **Where** | Beograd, Novi Sad, Niš, Kragujevac |
 | **Language** | Serbian, Latin script, formal "Vi" |
+| **Style** | A professional salesman: polished, confident, courteous, never pushy. Leads with what the owner gains and ends with one clear next step |
+| **Sales path** | Free homepage draft, then a 15-minute call to go through it, then a fixed price and a start date |
 | **Sending** | From your Gmail, at most 20 cold emails a day, weekdays 9:00 to 17:00 Belgrade time |
 | **Approval** | Nothing is sent until you approve it in the Outbox |
 | **Opt-out line** | "Ako Vas ovo ne zanima, samo odgovorite STOP i neću Vam više pisati." A reply of STOP is honoured at once. |
@@ -120,6 +122,10 @@ persona:
 ```
 
 They were left empty in this repo because the repo is public.
+
+Just below them, `tone` tells Sellbird to write with masculine verb forms
+("pogledao sam"). Serbian verbs follow the writer's gender, so if you're a
+woman, follow the note above `tone` to switch to feminine forms.
 
 Also check `key_benefits` and `objection_responses` under `product:`. Sellbird
 uses them in follow-ups and replies, so they should match what you really offer.
@@ -252,8 +258,11 @@ window. When someone writes back, Sellbird drafts an answer and it waits in
 the Outbox too.
 
 When someone says **yes** to the free draft, Sellbird marks them "Said yes to
-your offer", stops their follow-ups and drafts a short thank-you. Making the
-homepage draft and sending it is up to you.
+your offer", stops their follow-ups and drafts a short thank-you that asks
+for what you need to make it. Making the draft and sending it are up to you:
+send it with a suggestion of a 15-minute call to go through it. When they
+answer with interest, Sellbird's replies ask when a call suits them, and
+closing the deal on the call is yours.
 
 On Mac or Windows, `sellbird tray` puts a Sellbird icon in the menu bar or
 system tray to start and stop it, and `sellbird autostart install` starts that

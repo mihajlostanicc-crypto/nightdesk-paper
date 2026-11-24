@@ -14,11 +14,18 @@ persona:
   linkedin: ""
   # The Writer gets this line at the top of every prompt, so the language
   # rule lives here as well as in skills/product_knowledge.md.
+  # Serbian verbs follow the sender's gender. If you're a woman, change
+  # "masculine" to "feminine", "pogledao" to "pogledala", "napravio" to
+  # "napravila" and "salesman" to "saleswoman" below.
   tone: >-
     Write every email and every reply in Serbian, Latin script (latinica),
-    addressing the reader formally with "Vi". Friendly, plain and local,
-    like a neighbour who builds websites. Short sentences, no marketing
-    speak, no English words where a normal Serbian word exists.
+    addressing the reader formally with "Vi". The sender writes in the
+    first person with masculine verb forms ("pogledao sam", "napravio sam").
+    Write like an experienced, professional salesman: polished business
+    Serbian, confident and courteous, never pushy. Lead with what the owner
+    gains (more calls, bookings and new customers), be specific, and end
+    with one clear next step. Short sentences, no hype, no English words
+    where a normal Serbian word exists.
 
 product:
   name: "Websites for small local businesses"
@@ -39,28 +46,38 @@ product:
     - "Shows the menu, price list, services, photos and opening hours in one clear place"
   objection_responses:
     "too expensive": >-
-      Understandable. It's one fixed price under $500, agreed before I start,
-      and the free homepage draft costs nothing, so you can see exactly what
-      you'd get before deciding anything.
+      I understand, every expense has to pay for itself. It's one fixed price
+      under $500, agreed before I start, with no hidden costs. If the site
+      brings you even a few new customers, it has paid for itself. The draft
+      is free, so you see exactly what you're paying for before you decide.
     "already have a website": >-
-      That makes sense. Many sites I see were built years ago and are hard to
-      use on a phone. The free draft is just a side-by-side comparison, so you
-      can judge for yourself whether a change is worth it.
+      Good, then you already know a website matters. The question is whether
+      the current one brings in customers. Most people find a local business
+      on their phone, and that's where older sites lose them. The free draft
+      puts the two side by side, and you judge.
     "we use instagram/facebook": >-
-      Instagram is great for showing your work. A website is what Google shows
-      when someone searches for your kind of business in your city, and it can
-      link straight to your Instagram, so the two work together.
+      Instagram is excellent for showing your work, and it stays. A website
+      is what Google shows when someone searches for your kind of business in
+      your city, and those people are ready to book. The site links to your
+      Instagram, so each one brings customers to the other.
     "no time": >-
-      That's exactly why I do the whole thing. I need about 15 minutes of your
-      time for photos and details, and I handle everything else.
+      That's exactly why I do the whole job. I need about 15 minutes of your
+      time for photos and details, and I take care of everything else, from
+      the design to putting the site online.
+    "need to think about it": >-
+      Of course. To make the decision easy, I'll send the free draft first, so
+      you're deciding on something concrete, with the price fixed in advance.
     "not interested": >-
-      No problem at all, thank you for replying. I won't write again.
+      Understood, thank you for letting me know. I won't write again. If you
+      ever need a website, I'm happy to help.
   offer:
     primary: "A complete, mobile-friendly website for under $500, fixed price"
     # The free thing every first email offers. You chose this one.
     entry: "a free draft of how their new homepage could look"
-    goal: "get_reply"               # a reply saying "yes, send it"
-    booking_method: "ask_preference"
+    # Once someone is interested, replies move toward a short call to go
+    # through the draft and agree on the job.
+    goal: "book_call"
+    booking_method: "ask_preference"   # asks when suits them; no calendar link needed
     booking_url: ""
     meeting_duration: "15 minutes"
     meeting_owner: ""
