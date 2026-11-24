@@ -1,0 +1,171 @@
+# Sellbird config for a small website-building service, selling to local
+# businesses in Serbia. Copy this file into your Sellbird folder (next to
+# sellbird.yaml). When it's there, Sellbird reads it instead of sellbird.yaml.
+#
+# BEFORE THE FIRST RUN, fill in the three blanks under "persona":
+#   name, company and email. They were left empty here because this repo is
+#   public. See SETUP.md, step 3.
+
+persona:
+  name: ""                         # your first name, e.g. "Marko". Signs every email.
+  company: ""                      # your business name, or your full name if you work alone
+  role: "Web designer"
+  email: ""                        # the Gmail address you send from
+  linkedin: ""
+  # The Writer gets this line at the top of every prompt, so the language
+  # rule lives here as well as in skills/product_knowledge.md.
+  tone: >-
+    Write every email and every reply in Serbian, Latin script (latinica),
+    addressing the reader formally with "Vi". Friendly, plain and local,
+    like a neighbour who builds websites. Short sentences, no marketing
+    speak, no English words where a normal Serbian word exists.
+
+product:
+  name: "Websites for small local businesses"
+  description: >-
+    I design and build simple, modern websites for small local businesses
+    in Serbia that either have no website, or have an old one that looks
+    bad on a phone and doesn't help customers call, book or find them. I do
+    the whole job for the owner, from the first draft to putting the site
+    online, so they don't have to know anything technical.
+  pricing: "A complete website for under $500, as one fixed price agreed before I start."
+  # Check these match what you really do, and edit freely. Sellbird quotes
+  # them in follow-ups and replies.
+  key_benefits:
+    - "Looks good and works properly on a phone, where most customers find a local business"
+    - "Customers can call, get directions or send a booking request in one tap"
+    - "Helps the business show up when people search Google for what they do in their city"
+    - "One fixed price under $500, agreed up front, with no technical work for the owner"
+    - "Shows the menu, price list, services, photos and opening hours in one clear place"
+  objection_responses:
+    "too expensive": >-
+      Understandable. It's one fixed price under $500, agreed before I start,
+      and the free homepage draft costs nothing, so you can see exactly what
+      you'd get before deciding anything.
+    "already have a website": >-
+      That makes sense. Many sites I see were built years ago and are hard to
+      use on a phone. The free draft is just a side-by-side comparison, so you
+      can judge for yourself whether a change is worth it.
+    "we use instagram/facebook": >-
+      Instagram is great for showing your work. A website is what Google shows
+      when someone searches for your kind of business in your city, and it can
+      link straight to your Instagram, so the two work together.
+    "no time": >-
+      That's exactly why I do the whole thing. I need about 15 minutes of your
+      time for photos and details, and I handle everything else.
+    "not interested": >-
+      No problem at all, thank you for replying. I won't write again.
+  offer:
+    primary: "A complete, mobile-friendly website for under $500, fixed price"
+    # The free thing every first email offers. You chose this one.
+    entry: "a free draft of how their new homepage could look"
+    goal: "get_reply"               # a reply saying "yes, send it"
+    booking_method: "ask_preference"
+    booking_url: ""
+    meeting_duration: "15 minutes"
+    meeting_owner: ""
+
+icp:
+  # These are used word for word as Google searches ("frizerski salon
+  # Beograd"), so they're in Serbian. Add or remove any.
+  industries:
+    - "frizerski salon"
+    - "kozmetički salon"
+    - "salon za nokte"
+    - "berbernica"
+    - "teretana"
+    - "restoran"
+    - "kafić"
+    - "pekara"
+    - "hotel"
+    - "stomatološka ordinacija"
+    - "fizioterapija"
+    - "veterinarska ambulanta"
+  company_size: "1-20 employees (owner-run local businesses)"
+  # Who to write to: the owner or manager named on the business's own site.
+  titles:
+    - "Vlasnik"
+    - "Vlasnica"
+    - "Direktor"
+    - "Direktorka"
+    - "Menadžer"
+    - "Owner"
+    - "Manager"
+  # The four largest cities. Add towns here (and a matching line in
+  # geo_coordinates below if you use a map-based source).
+  geography:
+    - "Beograd"
+    - "Novi Sad"
+    - "Niš"
+    - "Kragujevac"
+  geo_coordinates:
+    "Beograd": "44.8125,20.4612,20"
+    "Novi Sad": "45.2671,19.8335,10"
+    "Niš": "43.3209,21.8958,10"
+    "Kragujevac": "44.0128,20.9114,10"
+  hiring_signals: []
+  keyword_variants: {}
+
+channels:
+  email:
+    enabled: true
+    # SMTP + IMAP with a Gmail app password. Simpler than Sellbird's Google
+    # Cloud route for a personal @gmail.com address. See SETUP.md, step 4.
+    provider: "smtp"
+    # A personal Gmail address can send far less cold email than a business
+    # domain before it lands in spam. Start low; raise slowly once replies
+    # come in and nothing bounces.
+    max_daily_sends: 20
+    per_inbox_daily_cap: 20
+    # Every email waits in the Outbox until you approve it. Leave this on.
+    require_approval: true
+    send_to_risky: false
+    max_bounce_rate: 0.05
+    warmup:
+      start_date: ""
+      min_days: 14
+      start_sends: 5
+      daily_increase: 3
+      dkim_selector: ""
+    # Cold email goes out only on weekdays between 9:00 and 17:00 Belgrade
+    # time. Replies to people who wrote back are never held.
+    send_window:
+      start: "09:00"
+      end: "17:00"
+      weekdays_only: true
+      recipient_timezone: false
+    signature:
+      logo: ""
+      width: 120
+      alt: ""
+      link: ""
+      direction: "auto"
+  linkedin:
+    enabled: false
+    max_daily_connections: 20
+    max_daily_messages: 10
+
+usage:
+  max_daily_claude_percent: 80
+  heartbeat_interval_minutes: 15
+  quiet_hours:
+    start: "22:00"
+    end: "07:00"
+    timezone: "Europe/Belgrade"
+
+compliance:
+  # Not required in Serbia the way it is under US law; add a business
+  # address if you have one; it makes the email look more trustworthy.
+  postal_address: ""
+  # Added under every cold email. "STOP" is also a reply Sellbird honours
+  # automatically, before the AI even reads it.
+  opt_out_line: "Ako Vas ovo ne zanima, samo odgovorite STOP i neću Vam više pisati."
+  # Businesses never to email: your existing clients, friends, competitors.
+  # An address ("marko@salon.rs") or a whole domain ("salon.rs").
+  do_not_contact: []
+  # Precleared doesn't cover Serbia, so this check stays off.
+  precleared:
+    enabled: false
+    sender_country: ""
+    address_source: "unknown"
+    prospect_country: ""
